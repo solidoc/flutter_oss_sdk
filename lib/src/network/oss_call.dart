@@ -10,21 +10,21 @@ class OssCall {
   OssCall(this.request, this.dio);
 
   Future execute(
-      {Function(OssResponse result) callback,
-      Function(int count, int total) onProgress,
-      Function(int count, int total) onReceiverProgress,
-      String path}) async {
+      {required Function(OssResponse result) callback,
+      required Function(int count, int total) onProgress,
+      required Function(int count, int total) onReceiverProgress,
+      String? path}) async {
     Options options = Options();
     options.contentType = request.contentType.toString();
     options.method = request.method;
     if (request.headers != null) {
       options.headers = request.headers;
-      options.headers.forEach((String key,dynamic value){
+      options.headers?.forEach((String key, dynamic value) {
         print("$key=$value");
       });
     }
     Response response;
-    OssResponse result = OssResponse();
+    OssResponse result = OssResponse(200, '', '');
     try {
       if (path == null || path.isEmpty) {
         response = await dio.request(request.url,
@@ -38,15 +38,13 @@ class OssCall {
             options: options,
             onReceiveProgress: onReceiverProgress);
       }
-      result.code = response.statusCode;
+      result.code = response.statusCode ?? 200;
     } on DioError catch (e) {
       print("request error:${e.toString()}");
       result.code = 500;
       result.msg = e.response.toString();
     }
     result.url = request.url;
-    if (callback != null) {
-      callback(result);
-    }
+    callback(result);
   }
 }

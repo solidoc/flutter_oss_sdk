@@ -4,14 +4,18 @@ class OssToken {
   String securityToken;
   String expiration;
 
-  OssToken({this.tempAk, this.tempSk, this.securityToken, this.expiration});
+  OssToken(
+      {required this.tempAk,
+      required this.tempSk,
+      required this.securityToken,
+      required this.expiration});
 
-
-  OssToken.fromJson(Map<String, dynamic> json) {
-    tempAk = json['AccessKeyId'];
-    tempSk = json['AccessKeySecret'];
-    securityToken = json['SecurityToken'];
-    expiration = json['Expiration'];
+  static OssToken fromJson(Map<String, dynamic> json) {
+    return OssToken(
+        expiration: json['Expiration'],
+        tempAk: json['AccessKeyId'],
+        tempSk: json['AccessKeySecret'],
+        securityToken: json['SecurityToken']);
   }
 
   Map<String, dynamic> toJson() {

@@ -5,10 +5,16 @@ class OssRequest {
   String method;
   dynamic data;
   String url;
-  Map<String, dynamic> headers={};
+  Map<String, dynamic> headers = {};
   String bucket;
   String objectKey;
   ContentType contentType;
-  OssRequest({this.method, this.data, this.url, this.headers,this.bucket,this.objectKey,this.contentType});
-
+  OssRequest(
+      {required this.method,
+      this.data,
+      required this.url,
+      required this.headers,
+      required this.bucket,
+      required this.objectKey,
+      required this.contentType});
 }

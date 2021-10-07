@@ -1,38 +1,36 @@
 import 'dart:io';
 
-
 ///ContentType 辅助类
 class ContentTypeUtils {
   static Map<String, String> _contentType = Map();
 
   ///根据后缀名获取ContentType
-  static ContentType getContentType(String suffix){
+  static ContentType getContentType(String suffix) {
     _initMap();
-     String contentType = _contentType[suffix];
-     return ContentType.parse(contentType??'*/*');
+    String? contentType = _contentType[suffix]!;
+    return ContentType.parse(contentType ?? '*/*');
   }
 
   ///根据后缀名获取ContentType 的String格式
-  static String getContentTypeString(String suffix){
+  static String getContentTypeString(String suffix) {
     _initMap();
-    String contentType = _contentType[suffix];
+    String contentType = _contentType[suffix]!;
     return contentType;
   }
 
   ///根据文件路径获取ContentType
-  static ContentType getFileContentType(String path){
+  static ContentType getFileContentType(String path) {
     String fileName = path.substring(path.lastIndexOf('/'));
     String suffix = fileName.substring(fileName.lastIndexOf('.'));
     return getContentType(suffix);
   }
 
   ///根据文件路径获取ContentType 的String格式
-  static String getFileContentTypeString(String path){
+  static String getFileContentTypeString(String path) {
     String fileName = path.substring(path.lastIndexOf('/'));
     String suffix = fileName.substring(fileName.lastIndexOf('.'));
     return getContentTypeString(suffix);
   }
-
 
   static void _initMap() {
     _contentType['.jpg'] = 'image/jpeg';

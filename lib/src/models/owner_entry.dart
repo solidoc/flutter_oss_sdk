@@ -4,5 +4,5 @@ class OwnerEntry {
   String id;
   //Bucket拥有者的名称
   String displayName;
-  OwnerEntry({this.id, this.displayName});
+  OwnerEntry({required this.id, required this.displayName});
 }

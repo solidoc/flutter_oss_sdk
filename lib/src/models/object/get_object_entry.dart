@@ -1,8 +1,11 @@
 ///下载object
 class GetObjectRequest {
-  String bucketName;
   String objectKey;
   String path;
-  bool isAuthorizationRequired;
-  GetObjectRequest(this.objectKey, this.path,{this.bucketName,this.isAuthorizationRequired});
+  String bucketName;
+  bool isAuthorizationRequired = false;
+  GetObjectRequest(this.objectKey, this.path,
+      {required this.bucketName, bool? isAuthorizationRequired}) {
+    this.isAuthorizationRequired = isAuthorizationRequired ?? false;
+  }
 }

@@ -15,7 +15,11 @@ class BucketEntry {
   //Bucket存储类型，支持Standard、IA、Archive三种存储类型
   StorageClass storageClass;
 
-  BucketEntry({this.creationDate, this.extranetEndpoint, this.intranetEndpoint,
-      this.location, this.name, this.storageClass});
-
+  BucketEntry(
+      {required this.creationDate,
+      required this.extranetEndpoint,
+      required this.intranetEndpoint,
+      required this.location,
+      required this.name,
+      required this.storageClass});
 }

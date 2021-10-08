@@ -7,8 +7,8 @@ class ContentTypeUtils {
   ///根据后缀名获取ContentType
   static ContentType getContentType(String suffix) {
     _initMap();
-    String? contentType = _contentType[suffix]!;
-    return ContentType.parse(contentType ?? '*/*');
+    String contentType = _contentType[suffix]!;
+    return ContentType.parse(contentType);
   }
 
   ///根据后缀名获取ContentType 的String格式

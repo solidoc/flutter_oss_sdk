@@ -34,7 +34,8 @@ class OssRequestSigner {
     StringBuffer canonicalString = StringBuffer();
     canonicalString.write(_request.method);
     canonicalString.write(NEW_LINE);
-    canonicalString.write('');
+    var md5 = _request.headers[HttpHeaderKey.CONTENT_MD5] ?? '';
+    canonicalString.write(md5);
     canonicalString.write(NEW_LINE);
     canonicalString.write(_request.headers[HttpHeaderKey.CONTENT_TYPE]);
     canonicalString.write(NEW_LINE);
@@ -44,6 +45,7 @@ class OssRequestSigner {
     canonicalString.write(_request.headers[HttpHeaderKey.X_OSS_SECURITY_TOKEN]);
     canonicalString.write(NEW_LINE);
     canonicalString.write("/${_request.bucket}/${_request.objectKey}");
+
     return canonicalString.toString();
   }
 

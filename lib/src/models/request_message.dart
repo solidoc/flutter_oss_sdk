@@ -12,6 +12,9 @@ class RequestMessage {
   String? authorization;
   ContentType? contentType;
   String? objectKey;
+  List<String>? objectKeys;
+  dynamic data;
+  Map<String, dynamic>? headers;
 
   RequestMessage(
       {this.endpoint,
@@ -22,5 +25,8 @@ class RequestMessage {
       this.savePath,
       this.authorization,
       this.contentType,
-      this.objectKey});
+      this.objectKey,
+      this.objectKeys,
+      this.data,
+      this.headers});
 }

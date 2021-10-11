@@ -62,6 +62,9 @@ class OssClient with ObjectService, BucketService implements BaseService {
     Map<String, dynamic> header = {
       HttpHeaderKey.CONTENT_TYPE: requestMessage.contentType ?? ''
     };
+    requestMessage.headers?.forEach((String key, dynamic value) {
+      header[key] = value;
+    });
     //生成url
     var url = _buildUrl(requestMessage);
     //处理请求方法
@@ -141,7 +144,7 @@ class OssClient with ObjectService, BucketService implements BaseService {
         return file.openRead();
       }
     } else {
-      return null;
+      return requestMessage.data;
     }
   }
 }

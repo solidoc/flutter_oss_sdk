@@ -47,4 +47,30 @@ class OssCall {
     result.url = request.url;
     callback(result);
   }
+
+  Future<OssResponse> post() async {
+    Options options = Options();
+    options.contentType = request.contentType.toString();
+    options.method = request.method;
+    options.headers = request.headers;
+    options.headers?.remove("Content-Type");
+    options.headers?.forEach((String key, dynamic value) {
+      print("$key=$value");
+    });
+
+    OssResponse result = OssResponse(204, '', '');
+    try {
+      Response response =
+          await dio.post(request.url, data: request.data, options: options);
+      result.code = response.statusCode ?? 500;
+    } on DioError catch (e) {
+      print("request-post error:${e.message}");
+      result.code = e.response?.statusCode ?? 500;
+      result.msg = e.response.toString();
+    } catch (e) {
+      print("-post error:$e");
+    }
+    result.url = request.url;
+    return result;
+  }
 }

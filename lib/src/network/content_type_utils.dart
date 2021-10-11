@@ -7,14 +7,14 @@ class ContentTypeUtils {
   ///根据后缀名获取ContentType
   static ContentType getContentType(String suffix) {
     _initMap();
-    String contentType = _contentType[suffix]!;
+    String contentType = _contentType[suffix] ?? "application/octet-stream";
     return ContentType.parse(contentType);
   }
 
   ///根据后缀名获取ContentType 的String格式
   static String getContentTypeString(String suffix) {
     _initMap();
-    String contentType = _contentType[suffix]!;
+    String contentType = _contentType[suffix] ?? "application/octet-stream";
     return contentType;
   }
 

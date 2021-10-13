@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:flutter_oss_sdk/src/models/object/delete_object_entry.dart';
 import 'package:flutter_oss_sdk/src/models/object/get_object_entry.dart';
 import 'package:flutter_oss_sdk/src/models/object/put_object_entry.dart';
@@ -96,5 +97,18 @@ abstract class ObjectService implements BaseService {
 
     OssCall call = await newCall(requestMsg);
     return await call.post();
+  }
+
+  Future<Map<String, dynamic>> headObject(HeadObjectRequest request) async {
+    RequestMessage requestMsg = RequestMessage(
+      objectKey: request.objectKey,
+      bucketName: request.bucketName,
+      contentType: ContentType.parse("text/xml"),
+      method: HttpMethod.HEAD,
+      isAuthorizationRequired: request.isAuthorizationRequired,
+    );
+    OssCall call = await newCall(requestMsg);
+    var response = await call.head();
+    return response.headers.map;
   }
 }

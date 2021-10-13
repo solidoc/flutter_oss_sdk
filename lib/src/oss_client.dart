@@ -118,6 +118,9 @@ class OssClient with ObjectService, BucketService implements BaseService {
       case HttpMethod.GET:
         methodStr = "GET";
         break;
+      case HttpMethod.HEAD:
+        methodStr = "HEAD";
+        break;
       case HttpMethod.POST:
         methodStr = "POST";
         break;

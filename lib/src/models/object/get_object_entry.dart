@@ -9,3 +9,14 @@ class GetObjectRequest {
     this.isAuthorizationRequired = isAuthorizationRequired ?? false;
   }
 }
+
+///head object
+class HeadObjectRequest {
+  String objectKey;
+  String bucketName;
+  bool isAuthorizationRequired = true;
+  HeadObjectRequest(this.objectKey,
+      {required this.bucketName, bool isAuthorizationRequired = true}) {
+    this.isAuthorizationRequired = isAuthorizationRequired;
+  }
+}

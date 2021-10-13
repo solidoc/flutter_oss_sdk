@@ -73,4 +73,17 @@ class OssCall {
     result.url = request.url;
     return result;
   }
+
+  Future<Response> head() async {
+    Options options = Options();
+    options.contentType = request.contentType.toString();
+    options.method = request.method;
+    options.headers = request.headers;
+    options.headers?.remove("Content-Type");
+    options.headers?.forEach((String key, dynamic value) {
+      print("$key=$value");
+    });
+
+    return await dio.head(request.url, options: options);
+  }
 }

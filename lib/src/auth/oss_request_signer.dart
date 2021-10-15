@@ -58,7 +58,7 @@ class OssRequestSigner {
     String month = _formatMonth(dateTime.month);
     String result =
         "$weekDay, ${_dealIntWithZero(dateTime.day)} $month ${dateTime.year} ${_dealIntWithZero(dateTime.hour)}:${_dealIntWithZero(dateTime.minute)}:${_dealIntWithZero(dateTime.second)} GMT";
-    print("_getGMTDate=$result");
+    // print("_getGMTDate=$result");
     _request.headers['Date'] = result;
     return result;
   }

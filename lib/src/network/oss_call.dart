@@ -19,9 +19,9 @@ class OssCall {
     options.method = request.method;
     if (request.headers != null) {
       options.headers = request.headers;
-      options.headers?.forEach((String key, dynamic value) {
-        print("$key=$value");
-      });
+      // options.headers?.forEach((String key, dynamic value) {
+      //   print("$key=$value");
+      // });
     }
     Response response;
     OssResponse result = OssResponse(200, '', '');
@@ -54,9 +54,9 @@ class OssCall {
     options.method = request.method;
     options.headers = request.headers;
     options.headers?.remove("Content-Type");
-    options.headers?.forEach((String key, dynamic value) {
-      print("$key=$value");
-    });
+    // options.headers?.forEach((String key, dynamic value) {
+    //   print("$key=$value");
+    // });
 
     OssResponse result = OssResponse(204, '', '');
     try {
@@ -80,9 +80,9 @@ class OssCall {
     options.method = request.method;
     options.headers = request.headers;
     options.headers?.remove("Content-Type");
-    options.headers?.forEach((String key, dynamic value) {
-      print("$key=$value");
-    });
+    // options.headers?.forEach((String key, dynamic value) {
+    //   print("$key=$value");
+    // });
 
     return await dio.head(request.url, options: options);
   }

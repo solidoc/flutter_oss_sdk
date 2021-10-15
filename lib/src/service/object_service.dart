@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:dio/dio.dart';
 import 'package:flutter_oss_sdk/src/models/object/delete_object_entry.dart';
 import 'package:flutter_oss_sdk/src/models/object/get_object_entry.dart';
 import 'package:flutter_oss_sdk/src/models/object/put_object_entry.dart';

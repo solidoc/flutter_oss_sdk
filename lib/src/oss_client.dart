@@ -105,7 +105,7 @@ class OssClient with ObjectService, BucketService implements BaseService {
     String resourcePath = requestMessage.objectKey!;
     String url = OssUtils.buildUrlWithBucket(bucket, _config.endPoint,
         resourcePath: resourcePath);
-    print("requestUrl=$url");
+    // print("requestUrl=$url");
     return url;
   }
 

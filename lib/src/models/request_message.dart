@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:flutter_oss_sdk/src/models/object/delete_object_entry.dart';
+
 import 'oss_const.dart';
 
 class RequestMessage {
@@ -12,7 +14,7 @@ class RequestMessage {
   String? authorization;
   ContentType? contentType;
   String? objectKey;
-  List<String>? objectKeys;
+  List<ObjectKey>? objectKeys;
   dynamic data;
   Map<String, dynamic>? headers;
 

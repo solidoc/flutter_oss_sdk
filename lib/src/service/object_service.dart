@@ -29,7 +29,8 @@ abstract class ObjectService implements BaseService {
     await call.execute(
         callback: (OssResponse result) {
           if (result.code == 200) {
-            PutObjectResponse response = PutObjectResponse(result.url);
+            PutObjectResponse response =
+                PutObjectResponse(result.url, result.xOssVersionId);
             onSucceed(response);
           } else {
             onFailed("upload failed,error code : ${result.code}");
@@ -40,13 +41,15 @@ abstract class ObjectService implements BaseService {
   }
 
   Future getObject(GetObjectRequest request,
-      {required Function() onSucceed,
+      {required Function(GetObjectResponse response) onSucceed,
       required Function(String errMsg) onFailed,
       required Function(int count, int total) onProgress}) async {
+    var versionId =
+        request.versionId.isNotEmpty ? "" : "?versionId=" + request.versionId;
     RequestMessage requestMsg = RequestMessage(
         bucketName: request.bucketName,
         method: HttpMethod.GET,
-        objectKey: request.objectKey,
+        objectKey: request.objectKey + versionId,
         savePath: request.path,
         isAuthorizationRequired: request.isAuthorizationRequired);
     // requestMsg.contentType = ContentTypeUtils.getFileContentType(requestMsg.savePath);
@@ -54,7 +57,7 @@ abstract class ObjectService implements BaseService {
     await call.execute(
         callback: (OssResponse result) {
           if (result.code == 200) {
-            onSucceed();
+            onSucceed(GetObjectResponse(result.xOssVersionId));
           } else {
             onFailed("download failed,error code : ${result.code}");
           }
@@ -68,8 +71,13 @@ abstract class ObjectService implements BaseService {
     var xml = '<?xml version="1.0" encoding="UTF-8"?><Delete>';
     var end = '</Delete>';
     xml += '<Quiet>true</Quiet>';
-    request.objectKeys.forEach((key) {
-      xml += '<Object><Key>' + key + '</Key></Object>';
+    request.objectKeys.forEach((obj) {
+      var versionId = obj.versionId.isNotEmpty ? obj.versionId : "null";
+      xml += '<Object><Key>' +
+          obj.key +
+          '</Key><VersionId>' +
+          versionId +
+          '</VersionId></Object>';
     });
     xml += end;
 
@@ -77,7 +85,7 @@ abstract class ObjectService implements BaseService {
     var data = xml;
     var md5Str = base64Encode(md5.convert(xml.codeUnits).bytes);
     var length = data.codeUnits.length;
-
+    print("deleteObjects: $xml");
     // headers
     var headers = {
       HttpHeaderKey.CONTENT_MD5: md5Str,

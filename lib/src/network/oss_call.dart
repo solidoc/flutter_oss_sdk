@@ -39,6 +39,7 @@ class OssCall {
             onReceiveProgress: onReceiverProgress);
       }
       result.code = response.statusCode ?? 200;
+      result.xOssVersionId = response.headers.value("x-oss-version-id") ?? '';
     } on DioError catch (e) {
       print("request error:${e.toString()}");
       result.code = 500;
@@ -63,6 +64,7 @@ class OssCall {
       Response response =
           await dio.post(request.url, data: request.data, options: options);
       result.code = response.statusCode ?? 500;
+      result.xOssVersionId = response.headers.value("x-oss-version-id") ?? '';
     } on DioError catch (e) {
       print("request-post error:${e.message}");
       result.code = e.response?.statusCode ?? 500;
@@ -80,9 +82,6 @@ class OssCall {
     options.method = request.method;
     options.headers = request.headers;
     options.headers?.remove("Content-Type");
-    // options.headers?.forEach((String key, dynamic value) {
-    //   print("$key=$value");
-    // });
 
     return await dio.head(request.url, options: options);
   }

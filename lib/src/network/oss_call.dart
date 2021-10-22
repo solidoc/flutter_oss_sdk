@@ -42,7 +42,7 @@ class OssCall {
       result.xOssVersionId = response.headers.value("x-oss-version-id") ?? '';
     } on DioError catch (e) {
       print("request error:${e.toString()}");
-      result.code = 500;
+      result.code = e.response?.statusCode ?? 500;
       result.msg = e.response.toString();
     }
     result.url = request.url;

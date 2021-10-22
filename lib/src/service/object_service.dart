@@ -45,7 +45,7 @@ abstract class ObjectService implements BaseService {
       required Function(String errMsg) onFailed,
       required Function(int count, int total) onProgress}) async {
     var versionId =
-        request.versionId.isNotEmpty ? "" : "?versionId=" + request.versionId;
+        request.versionId.isEmpty ? "" : "?versionId=" + request.versionId;
     RequestMessage requestMsg = RequestMessage(
         bucketName: request.bucketName,
         method: HttpMethod.GET,

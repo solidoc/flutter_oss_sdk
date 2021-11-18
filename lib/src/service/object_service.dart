@@ -85,7 +85,6 @@ abstract class ObjectService implements BaseService {
     var data = xml;
     var md5Str = base64Encode(md5.convert(xml.codeUnits).bytes);
     var length = data.codeUnits.length;
-    print("deleteObjects: $xml");
     // headers
     var headers = {
       HttpHeaderKey.CONTENT_MD5: md5Str,

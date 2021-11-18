@@ -41,7 +41,7 @@ class OssCall {
       result.code = response.statusCode ?? 200;
       result.xOssVersionId = response.headers.value("x-oss-version-id") ?? '';
     } on DioError catch (e) {
-      print("request error:${e.toString()}");
+      //print("request error:${e.toString()}");
       result.code = e.response?.statusCode ?? 500;
       result.msg = e.response.toString();
     }
@@ -66,11 +66,11 @@ class OssCall {
       result.code = response.statusCode ?? 500;
       result.xOssVersionId = response.headers.value("x-oss-version-id") ?? '';
     } on DioError catch (e) {
-      print("request-post error:${e.message}");
+      // print("request-post error:${e.message}");
       result.code = e.response?.statusCode ?? 500;
       result.msg = e.response.toString();
     } catch (e) {
-      print("-post error:$e");
+      // print("-post error:$e");
     }
     result.url = request.url;
     return result;

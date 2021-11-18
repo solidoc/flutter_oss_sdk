@@ -47,8 +47,8 @@ class OssClient with ObjectService, BucketService implements BaseService {
         receiveTimeout: receiveTimeout,
         baseUrl: baseUrl);
     _dio = Dio(options);
-    _dio.interceptors
-        .add(LogInterceptor(requestBody: false, responseBody: true));
+    // _dio.interceptors
+    //     .add(LogInterceptor(requestBody: false, responseBody: true));
   }
 
   @override

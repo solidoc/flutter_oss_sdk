@@ -17,23 +17,10 @@ import 'service/object_service.dart';
 
 ///oss 封装类
 class OssClient with ObjectService, BucketService implements BaseService {
-  //提供单例
-  static OssClient get instance => OssClient();
-
-  //全局配置
-  static late ClientConfig _config;
-
+  ClientConfig _config;
   late Dio _dio;
 
-  OssClient() {
-    _init();
-  }
-
-  static void init(ClientConfig config) {
-    _config = config;
-  }
-
-  void _init() {
+  OssClient(this._config) {
     _initDio();
   }
 

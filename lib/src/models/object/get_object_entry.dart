@@ -3,11 +3,12 @@ class GetObjectRequest {
   String objectKey;
   String versionId;
   String path;
-  String bucketName;
+  String? bucketName;
   bool isAuthorizationRequired = false;
   GetObjectRequest(this.objectKey, this.versionId, this.path,
-      {required this.bucketName, bool? isAuthorizationRequired}) {
+      {this.bucketName, bool? isAuthorizationRequired}) {
     this.isAuthorizationRequired = isAuthorizationRequired ?? false;
+    this.bucketName = bucketName;
   }
 }
 
@@ -20,10 +21,10 @@ class GetObjectResponse {
 ///head object
 class HeadObjectRequest {
   String objectKey;
-  String bucketName;
+  String? bucketName;
   bool isAuthorizationRequired = true;
   HeadObjectRequest(this.objectKey,
-      {required this.bucketName, bool isAuthorizationRequired = true}) {
+      {String? bucketName, bool isAuthorizationRequired = true}) {
     this.isAuthorizationRequired = isAuthorizationRequired;
   }
 }

@@ -5,8 +5,9 @@ class PutObjectRequest {
   String? bucketName;
   bool isAuthorizationRequired = false;
   PutObjectRequest(this.objectKey, this.uploadFilePath,
-      {this.bucketName, bool? isAuthorizationRequired = false}) {
+      {String? bucketName, bool? isAuthorizationRequired = false}) {
     this.isAuthorizationRequired = isAuthorizationRequired ?? false;
+    this.bucketName = bucketName;
   }
 }
 

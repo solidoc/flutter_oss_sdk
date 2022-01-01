@@ -1,10 +1,12 @@
 //删除objects
 class DeleteObjectsRequest {
   List<ObjectKey> objectKeys;
-  String bucketName;
+  String? bucketName;
   bool isAuthorizationRequired = true;
 
-  DeleteObjectsRequest(this.objectKeys, this.bucketName);
+  DeleteObjectsRequest(this.objectKeys, {String? bucketName}) {
+    this.bucketName = bucketName;
+  }
 }
 
 class ObjectKey {

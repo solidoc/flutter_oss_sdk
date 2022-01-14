@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:crypto/crypto.dart';
 import 'package:flutter_oss_sdk/src/models/oss_const.dart';
 import 'package:flutter_oss_sdk/src/network/OssRequest.dart';
+import 'package:flutter_oss_sdk/src/tool/ntp_time.dart';
 
 import 'oss_token.dart';
 
@@ -14,9 +15,9 @@ class OssRequestSigner {
 
   OssRequestSigner(this._token, this._request);
 
-  String sign() {
+  Future<String> sign() async {
     String accessKeyId = _token.tempAk;
-    String canonicalString = _buildCanonicalString();
+    String canonicalString = await _buildCanonicalString();
     String signature = _hmacSha1(canonicalString);
     return "OSS $accessKeyId:$signature";
   }
@@ -30,7 +31,8 @@ class OssRequestSigner {
     return result;
   }
 
-  String _buildCanonicalString() {
+  Future<String> _buildCanonicalString() async {
+    var gmtDate = await _getGMTDate();
     StringBuffer canonicalString = StringBuffer();
     canonicalString.write(_request.method);
     canonicalString.write(NEW_LINE);
@@ -39,7 +41,7 @@ class OssRequestSigner {
     canonicalString.write(NEW_LINE);
     canonicalString.write(_request.headers[HttpHeaderKey.CONTENT_TYPE]);
     canonicalString.write(NEW_LINE);
-    canonicalString.write(_getGMTDate());
+    canonicalString.write(gmtDate);
     canonicalString.write(NEW_LINE);
     canonicalString.write("${HttpHeaderKey.X_OSS_SECURITY_TOKEN}:");
     canonicalString.write(_request.headers[HttpHeaderKey.X_OSS_SECURITY_TOKEN]);
@@ -49,8 +51,8 @@ class OssRequestSigner {
     return canonicalString.toString();
   }
 
-  String _getGMTDate() {
-    DateTime now = DateTime.now();
+  Future<String> _getGMTDate() async {
+    DateTime now = await NtpTimeTool.now();
     int gmtMilliseconds =
         now.millisecondsSinceEpoch - now.timeZoneOffset.inMilliseconds;
     DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(gmtMilliseconds);

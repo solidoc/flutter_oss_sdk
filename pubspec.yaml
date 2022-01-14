@@ -1,6 +1,6 @@
 name: flutter_oss_sdk
 description: A new Flutter package for oss
-version: 1.0.14
+version: 1.0.15
 homepage: https://github.com/xes1v1/flutter_oss_sdk/
 author: "caofei <caofei@mail.iffe.co>"
 publish_to: http://39.98.121.7:38080
@@ -14,6 +14,7 @@ dependencies:
     sdk: flutter
   dio: ^4.0.0
   crypto: ^3.0.1
+  ntp: ^2.0.0
 
 dev_dependencies:
   flutter_test:

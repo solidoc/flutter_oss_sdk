@@ -78,7 +78,7 @@ class OssClient with ObjectService, BucketService implements BaseService {
       OssToken token = await _config.authorizationProvider!.getAuthorization();
       request.headers[HttpHeaderKey.X_OSS_SECURITY_TOKEN] = token.securityToken;
       OssRequestSigner signer = OssRequestSigner(token, request);
-      String authorization = signer.sign();
+      String authorization = await signer.sign();
       if (authorization.isNotEmpty) {
         request.headers[HttpHeaderKey.AUTHORIZATION] = authorization;
       }

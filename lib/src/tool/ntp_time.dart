@@ -5,9 +5,26 @@ class NtpTime {
   static NtpTime? ins;
   NtpTime._();
 
+  static Future<int> getNtpOffset() async {
+    int? offset;
+    try {
+      offset = await NTP.getNtpOffset(
+          lookUpAddress: "ntp.aliyun.com", timeout: Duration(seconds: 2));
+    } catch (e) {
+      print("getNtpOffset-ali error: $e");
+    }
+    if (offset != null) return offset;
+    try {
+      offset = await NTP.getNtpOffset(timeout: Duration(seconds: 2));
+    } catch (e) {
+      print("getNtpOffset-def error: $e");
+    }
+    return offset ?? 0;
+  }
+
   static Future<NtpTime> getInstance() async {
     if (ins != null) return ins!;
-    var offset = await NTP.getNtpOffset(lookUpAddress: "ntp.aliyun.com");
+    var offset = await getNtpOffset();
     var newIns = NtpTime._();
     newIns._offset = offset;
     ins = newIns;
